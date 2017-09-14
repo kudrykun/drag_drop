@@ -26,7 +26,9 @@ $(document).ready(function(){
 		        {
 		          	console.log(droppedFiles[i]);
 		          	var image = new Image();
+		          	/*Важно*/
 		          	image.onload = function () {
+		          		/*Добавляем шаблон контейнера для изображения*/
 			            $("#droppedImages .row").append(
 			            	'<div class="col-xs-12 col-sm-6 col-md-3">' +
 				            	'<div class="dz-image">' +
@@ -37,6 +39,7 @@ $(document).ready(function(){
 	                  			'</div>' +
 	                  		'</div>'
                   		);
+                  		/*Добавялем изображение в шаблон*/
 			            $("#droppedImages > .row > div > .dz-image").last().append(this);
 			            $(this).addClass("img-responsive");
 			        }
@@ -56,48 +59,53 @@ $(document).ready(function(){
     	ev.preventDefault();
   	});
 
-	$('input[type=file]').click(function(e){
-		e.stopImmediatePropagation();
-		alert('click handler');
-		// итерация через фзагружаемые файлы
-	    /*if(e.originalEvent.dataTransfer){
-	    	if(e.originalEvent.dataTransfer.files.length) {
-		        var droppedFiles = $(this).files;
-		        for(var i = 0; i < droppedFiles.length; i++)
-		        {
-		          	console.log(droppedFiles[i]);
-		          	var image = new Image();
-		          	image.onload = function () {
-			            $("#droppedImages .row").append(
-			            	'<div class="col-xs-12 col-sm-6 col-md-3">' +
-				            	'<div class="dz-image">' +
-	                  				'<div class="dz-preview-btn">' +
-	                  				'</div>' +
-	                  				'<div class="dz-delete-btn">' +
-	                  				'</div>' +
+
+	/*клик на дрозоне*/
+  	$("#myDropzone").on('click', function(ev) {
+  		ev.preventDefault();
+	    ev.stopPropagation();
+
+	    /*Вызов клика по файловому полю*/
+	    $('input[type=file]').click();
+
+	    /*Функция обработки клика*/
+	    $('input[type=file]').click(function(e){
+	    	e.stopPropagation();
+			alert('click handler');
+		});
+  	});
+
+  	/*Здесь возможно будет функция обработки файлов*/
+	$('input[type=file]').change(function(e){
+	    e.preventDefault();
+	    e.stopPropagation();
+	    if ($(this).get(0).files.length > 0) {
+	    	var droppedFiles = $(this).get(0).files;
+		    for(var i = 0; i < droppedFiles.length; i++)
+		    {
+		        console.log(droppedFiles[i]);
+		        var image = new Image();
+		        image.onload = function () {
+			        $("#droppedImages .row").append(
+			            '<div class="col-xs-12 col-sm-6 col-md-3">' +
+				            '<div class="dz-image">' +
+	                  			'<div class="dz-preview-btn">' +
 	                  			'</div>' +
-	                  		'</div>'
-                  		);
-				            $("#droppedImages > .row > div > .dz-image").last().append(this);
-				            $(this).addClass("img-responsive");
-				        }
-				        image.src = _URL.createObjectURL(droppedFiles[i]);
+	                  			'<div class="dz-delete-btn">' +
+	                  			'</div>' +
+	                  		'</div>' +
+	                  	'</div>'
+                  	);
+				    $("#droppedImages > .row > div > .dz-image").last().append(this);
+				    $(this).addClass("img-responsive"); 
 			          // Upload droppedFiles[i] to server
 			          // $.post(); to upload file to server
-			        }
-		      	}
-		    }*/
-			$("#myDropzone").addClass("dz-started");
-	    	$("#myDropzone").removeClass("highlightDropArea");
-			});
-  	$("#myDropzone").on('click', function(ev) {
-	    //Отключает дефолтные события, но это точно предотвращает открытие картинки в браузере
-	    alert('click event');
-	    $('input[type=file]').click();
-	    $('input[type=file]').change(function(){
-	    	alert('changed' + $(this).get(0).files.length); // get(0) важен, 
-	    });
-	    alert('event ending');
-  	});
+			    }
+			    image.src = _URL.createObjectURL(droppedFiles[i]);
+		    }
+		    $("#myDropzone").addClass("dz-started");
+	    }
+	    $("#myDropzone").removeClass("highlightDropArea");
+	});
 });
 
