@@ -14,27 +14,36 @@
 
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300i" rel="stylesheet">
-    <script src="https://use.fontawesome.com/3bb5fa9559.js"></script>
-  </head>
+    <!-- <script src="https://use.fontawesome.com/3bb5fa9559.js"></script>
+  </head> -->
   <body>
+
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="dropzone" id="myDropzone" onclick="$('#dzHiddenInput').click();">
-          	<input id="dzHiddenInput" type="file" style="visibility:hidden" multiple />
+        <!-- Скрытый input для открытия окна выбора файлов -->
+          <input id="dzHiddenInput" type="file" style="visibility:hidden" multiple />
+        <!-- Основной элемент дропзоны -->
+          <div class="dropzone" id="myDropzone">
+          	<!-- ПОдпись в центре -->
             <div class="dz-caption">
               <img src="icon3.png">
               <span>Перетащите фото или кликните</span>
             </div>
+
+            <!-- Контейнер для изображений -->
             <div class="dz-dropped" id="droppedImages">
               <div class="row">
                 
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
