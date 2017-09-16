@@ -27,25 +27,30 @@ $(document).ready(function(){
 		          	console.log(droppedFiles[i]);
 		          	var image = new Image();
 		          	/*Важно*/
-		          	image.onload = function () {
-		          		/*Добавляем шаблон контейнера для изображения*/
-			            $("#droppedImages .row").append(
+		          	image.onload = a(image,droppedFiles[i].size, droppedFiles[i].name);
+		        	function a(image,size, name) {
+			        	$("#droppedImages .row").append(
 			            	'<div class="col-xs-12 col-sm-6 col-md-3">' +
 				            	'<div class="dz-image">' +
 	                  				'<div class="dz-preview-btn">' +
 	                  				'</div>' +
 	                  				'<div class="dz-delete-btn">' +
 	                  				'</div>' +
+	                  				'<div class="dz-details">' +
+	                  					'<div class="dz-size">' + Math.round(size / 1024) + ' kB</div>' + 
+			    						'<div class="dz-name">' + name + '</div>' +
+	                  				'</div>' +
 	                  			'</div>' +
 	                  		'</div>'
                   		);
-                  		/*Добавялем изображение в шаблон*/
-			            $("#droppedImages > .row > div > .dz-image").last().append(this);
-			            $(this).addClass("img-responsive");
-			        }
-			        image.src = _URL.createObjectURL(droppedFiles[i]);
-		          // Upload droppedFiles[i] to server
-		          // $.post(); to upload file to server
+				    	$("#droppedImages > .row > div > .dz-image").last().append(image);
+				    	$(image).addClass("img-responsive"); 
+			          // Upload droppedFiles[i] to server
+			          // $.post(); to upload file to server
+			    	}
+			    	image.src = _URL.createObjectURL(droppedFiles[i]);
+		          	// Upload droppedFiles[i] to server
+		          	// $.post(); to upload file to server
 		        }
 	      	}
 	    }
@@ -67,16 +72,15 @@ $(document).ready(function(){
 
 	    /*Вызов клика по файловому полю*/
 	    $('input[type=file]').click();
-
-	    /*Функция обработки клика*/
+  	});
+  	/*Функция обработки клика*/
 	    $('input[type=file]').click(function(e){
 	    	e.stopPropagation();
 			alert('click handler');
 		});
-  	});
 
   	/*Здесь возможно будет функция обработки файлов*/
-	$('input[type=file]').change(function(e){
+	$('input[type=file]').on('change',function(e){
 	    e.preventDefault();
 	    e.stopPropagation();
 	    if ($(this).get(0).files.length > 0) {
@@ -85,7 +89,8 @@ $(document).ready(function(){
 		    {
 		        console.log(droppedFiles[i]);
 		        var image = new Image();
-		        image.onload = function () {
+		        image.onload = a(image,droppedFiles[i].size, droppedFiles[i].name);
+		        function a(image,size, name) {
 			        $("#droppedImages .row").append(
 			            '<div class="col-xs-12 col-sm-6 col-md-3">' +
 				            '<div class="dz-image">' +
@@ -93,16 +98,20 @@ $(document).ready(function(){
 	                  			'</div>' +
 	                  			'<div class="dz-delete-btn">' +
 	                  			'</div>' +
+	                  			'<div class="dz-details">' +
+	                  				'<div class="dz-size">' + Math.round(size / 1024) + ' MB</div>' + 
+			    					'<div class="dz-name">' + name + '</div>' +
+	                  			'</div>' +
 	                  		'</div>' +
 	                  	'</div>'
                   	);
-				    $("#droppedImages > .row > div > .dz-image").last().append(this);
-				    $(this).addClass("img-responsive"); 
+				    $("#droppedImages > .row > div > .dz-image").last().append(image);
+				    $(image).addClass("img-responsive"); 
 			          // Upload droppedFiles[i] to server
 			          // $.post(); to upload file to server
 			    }
 			    image.src = _URL.createObjectURL(droppedFiles[i]);
-		    }
+			}
 		    $("#myDropzone").addClass("dz-started");
 	    }
 	    $("#myDropzone").removeClass("highlightDropArea");

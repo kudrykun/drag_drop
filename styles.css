@@ -74,6 +74,7 @@ body {
 
 /*Кнопка удаления картинки*/
 .dz-delete-btn {
+	z-index: 5;
 	position: absolute;
 	top: 0;	
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -98,6 +99,7 @@ body {
 
 /*Кнопка выбора превью*/
 .dz-preview-btn {
+	z-index: 5;
 	position: absolute;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 	top: 0;	
@@ -126,4 +128,50 @@ body {
     width: 25%;
 	height: 25%;
 	background: #2196F3;
+}
+
+/*Информация для изображения*/
+.dz-details {
+	z-index: 4;
+	position: absolute;
+	text-align: center;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    font-size: 1.9em;
+    -webkit-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -moz-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -o-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dz-details:hover{
+	position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dz-name {
+	position: absolute;
+    width: 100%;
+    top: 40%;
+    -webkit-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -moz-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -o-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dz-size {
+	position: absolute;
+    width: 100%;
+    top: 50%;
+    -webkit-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -moz-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -o-transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dz-details:hover .dz-name, .dz-details:hover .dz-size {
+    color: black;
 }
