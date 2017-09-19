@@ -1,6 +1,17 @@
+function pic_size(){
+	var size = $("#myDropzone").find(".dz-image-container").length;
+	if (size != 0) {
+		return size;
+	}else {
+		return 0;
+	}
+};
+var pictures_size = pic_size();
+var preview = false;
 $(document).ready(function(){
 
 	var _URL = window.URL || window.webkitURL;
+	
 
 	/*dragenter - событие, которое срабатывает при перемещении чего либо в дропзону*/
 	$("#myDropzone").on('dragenter', function(ev) {
@@ -30,7 +41,7 @@ $(document).ready(function(){
 		          	image.onload = a(image,droppedFiles[i].size, droppedFiles[i].name);
 		        	function a(image,size, name) {
 			        	$("#droppedImages .row").append(
-			            	'<div class="col-xs-12 col-sm-6 col-md-3">' +
+			            	'<div class="col-xs-12 col-sm-6 col-md-3 dz-image-container">' +
 				            	'<div class="dz-image">' +
 	                  				'<div class="dz-preview-btn">' +
 	                  				'</div>' +
@@ -49,6 +60,7 @@ $(document).ready(function(){
 			          // $.post(); to upload file to server
 			    	}
 			    	image.src = _URL.createObjectURL(droppedFiles[i]);
+			    	pictures_size++;
 		          	// Upload droppedFiles[i] to server
 		          	// $.post(); to upload file to server
 		        }
@@ -68,16 +80,22 @@ $(document).ready(function(){
 
 	/*клик на дрозоне*/
   	$("#myDropzone").click(function(ev) {
-  		alert('parent');
 		/*Вызов клика по файловому полю*/
 		$('input[type=file]').click();
   	});
 
-  	$("#myDropzone").on('click',".dz-delete-btn", function(e){
 
-		alert('child');
+  	/*Удаление картинки*/
+  	$("#myDropzone").on('click',".dz-delete-btn", function(e){
 		$(this).closest(".dz-image-container").fadeOut();
-		return false;
+		return false;/*предотвращает запуск события родителя*/
+	});
+
+	/*Выбор превью*/
+  	$("#myDropzone").on('click',".dz-preview-btn", function(e){
+  		$('.dz-preview').removeClass('dz-preview');
+		$(this).closest(".dz-image").addClass('dz-preview');
+		return false;/*предотвращает запуск события родителя*/
 	});
 
   	
@@ -116,6 +134,10 @@ $(document).ready(function(){
 			          // $.post(); to upload file to server
 			    }
 			    image.src = _URL.createObjectURL(droppedFiles[i]);
+			    if(pictures_size == 0) {
+			    	$(".dz-image").addClass('dz-preview');
+			    }
+			    pictures_size++;
 			}
 		    $("#myDropzone").addClass("dz-started");
 	    }
