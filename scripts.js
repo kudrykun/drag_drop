@@ -62,27 +62,32 @@ $(document).ready(function(){
 
   	$("#myDropzone").on('dragover', function(ev) {
     	ev.preventDefault();
+	    ev.stopPropagation();
   	});
 
 
 	/*клик на дрозоне*/
-  	$("#myDropzone").on('click', function(ev) {
-  		ev.preventDefault();
-	    ev.stopPropagation();
-
-	    /*Вызов клика по файловому полю*/
-	    $('input[type=file]').click();
+  	$("#myDropzone").click(function(ev) {
+  		alert('parent');
+		/*Вызов клика по файловому полю*/
+		$('input[type=file]').click();
   	});
+
+  	$("#myDropzone").on('click',".dz-delete-btn", function(e){
+
+		alert('child');
+		$(this).closest(".dz-image-container").fadeOut();
+		return false;
+	});
+
+  	
+
   	/*Функция обработки клика*/
-	    $('input[type=file]').click(function(e){
-	    	e.stopPropagation();
-			alert('click handler');
-		});
+	$('input[type=file]').click(function(e){
+	});
 
   	/*Здесь возможно будет функция обработки файлов*/
 	$('input[type=file]').on('change',function(e){
-	    e.preventDefault();
-	    e.stopPropagation();
 	    if ($(this).get(0).files.length > 0) {
 	    	var droppedFiles = $(this).get(0).files;
 		    for(var i = 0; i < droppedFiles.length; i++)
@@ -92,7 +97,7 @@ $(document).ready(function(){
 		        image.onload = a(image,droppedFiles[i].size, droppedFiles[i].name);
 		        function a(image,size, name) {
 			        $("#droppedImages .row").append(
-			            '<div class="col-xs-12 col-sm-6 col-md-3">' +
+			            '<div class="col-xs-12 col-sm-6 col-md-3 dz-image-container">' +
 				            '<div class="dz-image">' +
 	                  			'<div class="dz-preview-btn">' +
 	                  			'</div>' +
@@ -115,6 +120,6 @@ $(document).ready(function(){
 		    $("#myDropzone").addClass("dz-started");
 	    }
 	    $("#myDropzone").removeClass("highlightDropArea");
-	});
+	});	
 });
 
