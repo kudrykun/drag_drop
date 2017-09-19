@@ -1,3 +1,4 @@
+/*Инициализация количества картинок*/
 function pic_size(){
 	var size = $("#myDropzone").find(".dz-image-container").length;
 	if (size != 0) {
@@ -6,11 +7,17 @@ function pic_size(){
 		return 0;
 	}
 };
+/*счетчик картинок*/
 var pictures_size = pic_size();
+
+
 $(document).ready(function(){
 
 	var _URL = window.URL || window.webkitURL;
-	
+
+	/****************************************************/
+	/***************ПЕРЕТАСКИВАНИЕ***********************/
+	/****************************************************/
 
 	/*dragenter - событие, которое срабатывает при перемещении чего либо в дропзону*/
 	$("#myDropzone").on('dragenter', function(ev) {
@@ -53,18 +60,16 @@ $(document).ready(function(){
 	                  			'</div>' +
 	                  		'</div>'
                   		);
+                  		/**/
 				    	$("#droppedImages > .row > div > .dz-image").last().append(image);
 				    	$(image).addClass("img-responsive"); 
-			          // Upload droppedFiles[i] to server
-			          // $.post(); to upload file to server
+
 			    	}
 			    	image.src = _URL.createObjectURL(droppedFiles[i]);
 			    	if(pictures_size == 0) {
 			    		$(".dz-image").addClass('dz-preview');
 			    	}
 			    	pictures_size++;
-		          	// Upload droppedFiles[i] to server
-		          	// $.post(); to upload file to server
 		        }
 	      	}
 	    }
@@ -80,41 +85,15 @@ $(document).ready(function(){
   	});
 
 
+  	/****************************************************/
+	/***************КЛИК*********************************/
+	/****************************************************/
+
 	/*клик на дрозоне*/
   	$("#myDropzone").click(function(ev) {
 		/*Вызов клика по файловому полю*/
 		$('input[type=file]').click();
   	});
-
-
-  	/*Удаление картинки*/
-  	$("#myDropzone").on('click',".dz-delete-btn", function(e){
-  		if( $(this).closest('.dz-image').hasClass('dz-preview')) {
-  			$(this).closest(".dz-image-container").fadeOut(400,function(){
-				$(this).remove();
-				$('#myDropzone').find('.dz-image').first().addClass('dz-preview');
-  			});	
-  		}
-  		else{
-  			$(this).closest(".dz-image-container").fadeOut(300, function(){ $(this).remove(); });
-  		}
-		
-		pictures_size--;
-		if (pictures_size == 0) {
-			$("#myDropzone").removeClass("dz-started");
-		}
-		return false;/*предотвращает запуск события родителя*/
-	});
-
-	/*Выбор превью*/
-  	$("#myDropzone").on('click',".dz-preview-btn", function(e){
-  		$('.dz-preview').removeClass('dz-preview');
-		$(this).closest(".dz-image").addClass('dz-preview');
-		return false;/*предотвращает запуск события родителя*/
-	});
-
-  	
-
   	/*Функция обработки клика*/
 	$('input[type=file]').click(function(e){
 	});
@@ -145,8 +124,6 @@ $(document).ready(function(){
                   	);
 				    $("#droppedImages > .row > div > .dz-image").last().append(image);
 				    $(image).addClass("img-responsive"); 
-			          // Upload droppedFiles[i] to server
-			          // $.post(); to upload file to server
 			    }
 			    image.src = _URL.createObjectURL(droppedFiles[i]);
 			    if(pictures_size == 0) {
@@ -160,5 +137,41 @@ $(document).ready(function(){
 	    }
 	    $("#myDropzone").removeClass("highlightDropArea");
 	});	
+
+
+
+	/****************************************************/
+	/***************УПРАВЛЕНИЕ***************************/
+	/****************************************************/
+
+  	/*Удаление картинки*/
+  	$("#myDropzone").on('click',".dz-delete-btn", function(e){
+  		if( $(this).closest('.dz-image').hasClass('dz-preview')) {
+  			$(this).closest(".dz-image-container").fadeOut(400,function(){
+				$(this).remove();
+				$('#myDropzone').find('.dz-image').first().addClass('dz-preview');
+  			});	
+  		}
+  		else{
+  			$(this).closest(".dz-image-container").fadeOut(300, function(){ $(this).remove(); });
+  		}
+		
+		pictures_size--;
+		if (pictures_size == 0) {
+			$("#myDropzone").removeClass("dz-started");
+		}
+		return false;/*предотвращает запуск события родителя*/
+	});
+
+	/*Выбор превью*/
+  	$("#myDropzone").on('click',".dz-preview-btn", function(e){
+  		$('.dz-preview').removeClass('dz-preview');
+		$(this).closest(".dz-image").addClass('dz-preview');
+		return false;/*предотвращает запуск события родителя*/
+	});
+
+  	
+
+  	
 });
 
