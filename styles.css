@@ -139,6 +139,7 @@ body {
     height: 100%;
     color: transparent;
     font-size: 1.9em;
+    border-radius: 5px;
     -webkit-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -moz-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -o-transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);

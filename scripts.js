@@ -89,7 +89,19 @@ $(document).ready(function(){
 
   	/*Удаление картинки*/
   	$("#myDropzone").on('click',".dz-delete-btn", function(e){
-		$(this).closest(".dz-image-container").fadeOut();
+  		if( $(this).closest('.dz-image').hasClass('dz-preview')) {
+  			$(this).closest(".dz-image-container").fadeOut();
+  			$(this).closest(".dz-image-container").remove();
+  			$('#myDropzone').delay(300).find('.dz-image').first().addClass('dz-preview');
+  		}
+  		else{
+  			$(this).closest(".dz-image-container").fadeOut(300, function(){ $(this).remove(); });
+  		}
+		
+		pictures_size--;
+		if (pictures_size == 0) {
+			$("#myDropzone").removeClass("dz-started");
+		}
 		return false;/*предотвращает запуск события родителя*/
 	});
 
@@ -142,6 +154,7 @@ $(document).ready(function(){
 			    }
 			    pictures_size++;
 			}
+			$('#dzHiddenInput').val('')
 		    $("#myDropzone").addClass("dz-started");
 	    }
 	    $("#myDropzone").removeClass("highlightDropArea");
