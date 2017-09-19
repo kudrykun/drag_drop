@@ -90,9 +90,10 @@ $(document).ready(function(){
   	/*Удаление картинки*/
   	$("#myDropzone").on('click',".dz-delete-btn", function(e){
   		if( $(this).closest('.dz-image').hasClass('dz-preview')) {
-  			$(this).closest(".dz-image-container").fadeOut();
-  			$(this).closest(".dz-image-container").remove();
-  			$('#myDropzone').delay(300).find('.dz-image').first().addClass('dz-preview');
+  			$(this).closest(".dz-image-container").fadeOut(400,function(){
+				$(this).remove();
+				$('#myDropzone').find('.dz-image').first().addClass('dz-preview');
+  			});	
   		}
   		else{
   			$(this).closest(".dz-image-container").fadeOut(300, function(){ $(this).remove(); });
