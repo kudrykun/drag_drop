@@ -7,7 +7,6 @@ function pic_size(){
 	}
 };
 var pictures_size = pic_size();
-var preview = false;
 $(document).ready(function(){
 
 	var _URL = window.URL || window.webkitURL;
@@ -60,6 +59,9 @@ $(document).ready(function(){
 			          // $.post(); to upload file to server
 			    	}
 			    	image.src = _URL.createObjectURL(droppedFiles[i]);
+			    	if(pictures_size == 0) {
+			    		$(".dz-image").addClass('dz-preview');
+			    	}
 			    	pictures_size++;
 		          	// Upload droppedFiles[i] to server
 		          	// $.post(); to upload file to server
@@ -136,6 +138,7 @@ $(document).ready(function(){
 			    image.src = _URL.createObjectURL(droppedFiles[i]);
 			    if(pictures_size == 0) {
 			    	$(".dz-image").addClass('dz-preview');
+
 			    }
 			    pictures_size++;
 			}
